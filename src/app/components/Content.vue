@@ -16,6 +16,17 @@
           </h3>
         </div>
 
+        <div class="col-md-12 text-center">
+          <br>
+            <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="Date" id="datepicker">
+              </div>
+              <div class="col-sm-4"></div>
+            </div>
+        </div>
+
         <div class="card-body" v-if="picture">
           <div class="row">
             <div class="col-sm-6 col-xs-12">
@@ -108,6 +119,24 @@ import moment from "moment";
 export default {
   mounted() {
     this.get(this.fecha);
+    var me = this;
+    var picker = new Pikaday({ 
+        field: document.getElementById('datepicker'),
+        format: 'YYYY/MM/DD',
+        onSelect: function(date) {
+          var d = date.getDate();
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+
+          var t = `${year}-${month}-${day}`;
+
+
+          me.get(t)
+        },
+        maxDate: new Date(),
+    });
+    this.$picker = picker;
   },
 
   data() {
@@ -152,7 +181,7 @@ export default {
 
     validDate(){
       return this.CurrentFecha < moment().format('YYYY-MM-DD');
-    }
+    },
   },
 
   computed: {
