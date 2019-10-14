@@ -16,6 +16,9 @@
           </h3>
         </div>
 
+        <div class="col-md-12">
+        </div>
+
         <div class="col-md-12 text-center">
           <br>
             <div class="row">
@@ -29,10 +32,10 @@
 
         <div class="card-body" v-if="picture">
           <div class="row">
-            <div class="col-sm-6 col-xs-12">
+            <div class="col-sm-6 col-xs-12 py-4" v-if="picture.media_type == 'image'">
               <a target="_blank" :href="picture.url">
                 <img
-                  style="max-height: 350px"
+                  style="min-height: 250px"
                   width="100%"
                   heigth="100%"
                   class="img-responsive"
@@ -40,6 +43,10 @@
                   alt
                 >
               </a>
+            </div>
+
+            <div class="col-sm-6 col-xs-12 py-4" v-if="picture.media_type == 'video'">
+              <iframe class="ifrVideo" :src="picture.url" frameborder="0"></iframe> 
             </div>
 
             <div class="col-sm-6 col-xs-12">
@@ -70,8 +77,6 @@
 
           <div class="row" v-if="fechaAnterior && fechaSiguiente">
             <div class="col-sm-12">
-              <center>
-                <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
                     <li class="page-item">
                       <a
@@ -88,8 +93,6 @@
                       >Next</a>
                     </li>
                   </ul>
-                </nav>
-              </center>
             </div>
           </div>
         </div>
@@ -175,6 +178,8 @@ export default {
           me.fechaSiguiente = response.data.fechaSiguiente;
           me.fechaAnterior = response.data.fechaAnterior;
           me.loading = false;
+
+          localStorage.setItem('apod_current_date', fecha)
         })
         .catch(err => console.log(err));
     },
@@ -187,7 +192,12 @@ export default {
   computed: {
     fecha: function(){
       if (this.fechaAnterior == '') {
-        return moment().format('YYYY-MM-DD');
+        var l = localStorage.getItem('apod_current_date');
+        if (l == null) {
+          return moment().format('YYYY-MM-DD');
+        } else {
+          return l;
+        }
       }
 
       return this.CurrentFecha;
@@ -197,5 +207,5 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 </style>

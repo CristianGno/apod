@@ -19,10 +19,13 @@ const Controller = {
       fecha = req.query.date;
     }
 
-    const fechaSiguiente = moment(fecha)
+    var fecha1 = `${fecha} 00:00:00`;
+    console.log(fecha1)
+
+    const fechaSiguiente = moment(fecha1)
       .add(1, "day")
       .format("YYYY-MM-DD");
-    const fechaAnterior = moment(fecha)
+    const fechaAnterior = moment(fecha1)
       .subtract(1, "day")
       .format("YYYY-MM-DD");
 
@@ -36,7 +39,7 @@ const Controller = {
           fechaAnterior
         });
       } else {
-        console.log("axios");
+        //console.log("axios");
         var target = uriApi + "&date=" + fecha;
         return axios.get(target).then(response => {
           var tempPic = new PicOfTheDay(response.data).save((err, stored) => {

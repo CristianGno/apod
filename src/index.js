@@ -1,19 +1,12 @@
 "use strict";
 
+require('dotenv').config()
+
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const mongoose = require("mongoose");
 const config = require('./config')
-
-mongoose
-  .connect(config.MONGO_URI, {
-    useNewUrlParser: true
-  })
-  .then(db => {
-    console.log("DB connected");
-  })
-  .catch(err => console.log(err));
+const db = require('./database')
 
 //settings
 app.set("port", process.env.PORT || config.PORT);

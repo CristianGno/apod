@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="py-2">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">APOD</a>
       <button
