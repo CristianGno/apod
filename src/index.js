@@ -7,6 +7,7 @@ const app = express();
 const morgan = require("morgan");
 const config = require('./config')
 const db = require('./database')
+config.BASE_PATH = __dirname;
 
 //settings
 app.set("port", process.env.PORT || config.PORT);

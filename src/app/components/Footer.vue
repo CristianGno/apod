@@ -2,7 +2,7 @@
   <div>
     <footer class="footer">
     	<p>
-    		&copy; <a href="https://apod.nasa.gov/apod/">NASA APOD</a>
+    		&copy; <a target="_blank" href="https://apod.nasa.gov/apod/">NASA APOD</a>
     	</p>
 
     	<p>

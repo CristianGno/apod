@@ -4,6 +4,10 @@ const uriApi =
 const PicOfTheDay = require("../models/PicOfTheDay");
 const moment = require("moment");
 const axios = require("axios");
+const fs = require('fs');
+const path = require("path");
+const request = require("request");
+const config = require('../config')
 
 const { getPics } = require("../services/pics.service");
 
@@ -59,6 +63,26 @@ const Controller = {
   async deleteAll(req, res) {
     await PicOfTheDay.deleteMany({});
     res.json("Deleted All");
+  },
+
+  async download(req, res){
+    const { id } = req.params;
+    var pic = await PicOfTheDay.findOne({_id: id});
+    var { url } = pic;
+    var u = '';
+    var l = url.split('/');
+    var pt = 'public/downloads/';
+
+    var filename = pt + l[l.length - 1]
+    var x = `${config.BASE_PATH}/${filename}`
+
+    request.head(url, function (err, resp, body){
+        request(url).pipe(fs.createWriteStream(x)).on('close', function(){
+          res.download(x, l[l.length - 1], function(){
+            fs.unlink(x, function(e){})
+          })
+        });
+    })
   }
 };
 
