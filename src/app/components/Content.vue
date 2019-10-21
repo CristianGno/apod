@@ -60,15 +60,30 @@
                   <p>{{ picture.explanation }}</p>
                 </div>
 
-                <div class="col-sm-12" v-if="picture.media_type == 'image'">
+                <div class="col-sm-6 col-xs-12" v-if="picture.media_type == 'image'">
                   <div class="form-group">
                     <a
                       target="_blank"
                       :href="picture.hdurl"
                       class="btn btn-info form-control"
-                    >View in HD</a>
+                    >
+                      View in HD
+                    </a>
                   </div>
                 </div>
+
+                <div class="col-sm-6 col-xs-12" v-if="picture.media_type == 'image'">
+                  <div class="form-group">
+                    <a
+                      target="_blank"
+                      :href="linkDownload(picture)"
+                      class="btn btn-info form-control"
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -187,6 +202,12 @@ export default {
     validDate(){
       return this.CurrentFecha < moment().format('YYYY-MM-DD');
     },
+
+    linkDownload(picture){
+      let u = '/api/nasa/download/:id';
+      let urlTo = u.replace(':id', picture._id);
+      return urlTo;
+    }
   },
 
   computed: {
