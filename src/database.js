@@ -7,7 +7,7 @@ const db = mongoose
     useUnifiedTopology: true,
   })
   .then(db => {
-    console.log("DB connected");
+    console.log("DB is Connected to MONGO_DB_DATABASE");
   })
   .catch(err => console.log(err));
 
