@@ -4,7 +4,10 @@ const Controller = {
 
     async get(req, res) {
         const tasks = await Task.find();
-        return res.json(tasks);
+        return res.json({
+            tasks: tasks,
+            status: 200
+        });
     },
 
     async save(req, res) {
