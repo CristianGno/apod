@@ -13,7 +13,7 @@
   "author": "Cristian Galeano",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-force-https": "^1.0.0",
